@@ -1,0 +1,105 @@
+#
+# A couple of useful guides & docs:
+#
+# - Main Bitrise CLI docs: https://github.com/bitrise-io/bitrise/tree/master/_docs
+# - Step Development Guideline: https://github.com/bitrise-io/bitrise/blob/master/_docs/step-development-guideline.md
+# - Bitrise.yml format spec: https://github.com/bitrise-io/bitrise/blob/master/_docs/bitrise-yml-format-spec.md
+# - Bitrise docs: http://devcenter.bitrise.io/
+# - Bitrise CLI guides: http://devcenter.bitrise.io/bitrise-cli/
+
+title: |-
+  xcode-sim
+summary: |
+  Creates package with iOS application for iOS simulator on macOS
+description: |
+  Creates package with iOS application for iOS simulator on macOS (can be used with Appium)
+website: https://github.com/SmagaBakery/bitrise-step-xcode-sim
+source_code_url: https://github.com/SmagaBakery/bitrise-step-xcode-sim
+support_url: https://github.com/SmagaBakery/bitrise-step-xcode-sim
+host_os_tags:
+  - osx-10.10
+  - ubuntu-16.04
+
+# If this step should be available only for certain project types
+# just uncomment this `project_type_tags` section and include all the
+# project types supported by the step. If the step can be used for all
+# project types then you can just remove this section.
+# If no `project_type_tags` specified (or specified as an empty array)
+# that means the step can be used for any project type.
+# You can find more information about project type tags in the Step Development Guideline:
+# https://github.com/bitrise-io/bitrise/blob/master/_docs/step-development-guideline.md
+#
+# project_type_tags:
+#   - ios
+#   - macos
+#   - android
+#   - xamarin
+#   - react-native
+#   - cordova
+#   - ionic
+
+# Type tags are used for categorizing steps, for easier step discovery in Step Libraries.
+# You can find more information about type tags in the Step Development Guideline:
+# https://github.com/bitrise-io/bitrise/blob/master/_docs/step-development-guideline.md
+type_tags:
+  - build
+
+is_requires_admin_user: true
+is_always_run: false
+is_skippable: false
+run_if: ""
+
+deps:
+  brew:
+  apt_get:
+
+
+toolkit:
+  bash:
+    entry_file: step.sh
+
+
+inputs:
+  - xcode_project_path: "${BITRISE_PROJECT_PATH}"
+    opts:
+      title: "XCode project path"
+      summary: "XCode project path - shall contain .xcodeproj"
+      description: ""
+      is_expand: true
+      is_required: true
+  - xcode_scheme: "${BITRISE_SCHEME}"
+    opts:
+      title: "XCode scheme"
+      summary: ""
+      description: ""
+      is_expand: true
+      is_required: true
+  - xcode_configuration: Release
+    opts:
+      title: "XCode configuration"
+      summary: "XCode configuration, typically Release or Debug"
+      description: ""
+      is_expand: false
+      is_required: true
+  - xcode_sdk: iphonesimulator10.3
+    opts:
+      title: "XCode SDK"
+      summary: ""
+      description: ""
+      is_expand: false
+      is_required: true
+  - deploy_dir: "${BITRISE_DEPLOY_DIR}"
+    opts:
+      title: "Deploy directory"
+      summary: "is set, iOS application zip file will be conpied to the specified directory"
+      description: ""
+      is_expand: true
+      is_required: false
+
+
+outputs:
+  - IOSSIM_ZIP_PATH:
+    opts:
+      title: "iOS application zip path"
+      summary: "iOS application zip path"
+      description: ""
