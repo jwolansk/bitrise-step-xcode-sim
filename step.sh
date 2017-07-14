@@ -5,7 +5,7 @@
 # TODO: fix CMD exits with error "Build: command not found" even though the file is created
 
 # debug log
-set -x
+#set -x
 
 CMD="xcodebuild"
 
