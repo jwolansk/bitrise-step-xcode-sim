@@ -16,7 +16,7 @@ else
     exit 1
 fi
 if [ -n "${xcode_scheme}" ] ; then
-    CMD+=" -scheme ${xcode_scheme}"
+    CMD+=" -scheme \"${xcode_scheme}\""
 else
     echo "Error: xcode_scheme not set"
     exit 1
@@ -34,6 +34,10 @@ else
     exit 1
 fi
 
+if [ -n "${other_swift_flags}" ] ; then
+    CMD+=" OTHER_SWIFT_FLAGS=\"${other_swift_flags}\""
+fi
+
 IOSSIM_OUT_DIR=`pwd`/build
 CMD+=" SYMROOT=${IOSSIM_OUT_DIR}"
 
@@ -44,7 +48,7 @@ CMD+=" build"
 echo ${CMD}
 
 # build the simulator
-`${CMD}`
+eval $CMD
 
 # find the app
 
@@ -55,8 +59,11 @@ test -e ${OSSIM_APP_PATH} && echo ${OSSIM_APP_PATH}
 IOSSIM_APP_DIR=`dirname ${IOSSIM_APP_PATH}`
 IOSSIM_APP_FILE=`basename ${IOSSIM_APP_PATH}`
 
+# strip scheme name from whitespaces
+STRIPPED_SCHEME="$(echo -e "${xcode_scheme}" | tr -d '[:space:]')"
+
 # compress the app directory
-IOSSIM_ZIP_FILE="${xcode_scheme}-${xcode_configuration}.zip"
+IOSSIM_ZIP_FILE="${STRIPPED_SCHEME}-${xcode_configuration}.zip"
 pushd ${IOSSIM_APP_DIR}
 zip -r -q ${IOSSIM_ZIP_FILE} ${IOSSIM_APP_FILE}
 IOSSIM_ZIP_PATH=`pwd`/${IOSSIM_ZIP_FILE}

@@ -95,6 +95,13 @@ inputs:
       description: ""
       is_expand: true
       is_required: false
+  - other_swift_flags:
+    opts:
+      title: "Other Swift flags"
+      summary: "Other Sift flags to append to xcodebuild command."
+      description: "Those preprocesor macros will be appended as OTHER_SWIFT_FLAGS"
+      is_expand: false
+      is_required: false
 
 
 outputs:
