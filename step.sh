@@ -21,6 +21,9 @@ else
     echo "Error: xcode_scheme not set"
     exit 1
 fi
+
+CMD+=" -resolvePackageDependencies"
+
 if [ -n "${xcode_configuration}" ] ; then
     CMD+=" -configuration ${xcode_configuration}"
 else
