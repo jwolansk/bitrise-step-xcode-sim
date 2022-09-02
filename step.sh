@@ -45,10 +45,11 @@ mkdir build
 IOSSIM_OUT_DIR=`pwd`/build
 CMD+=" SYMROOT=${IOSSIM_OUT_DIR}"
 
-#CMD+=" -verbose"
+CMD+=" -verbose"
 
 CMD+=" build"
 
+echo xcode build command:
 echo ${CMD}
 
 # build the simulator
