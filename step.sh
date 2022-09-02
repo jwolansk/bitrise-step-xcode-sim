@@ -41,13 +41,13 @@ if [ -n "${other_swift_flags}" ] ; then
     CMD+=" OTHER_SWIFT_FLAGS=\"${other_swift_flags}\""
 fi
 
-mkdir build
-IOSSIM_OUT_DIR=`pwd`/build
-CMD+=" SYMROOT=${IOSSIM_OUT_DIR}"
+#mkdir build
+#IOSSIM_OUT_DIR=`pwd`/build
+#CMD+=" SYMROOT=${IOSSIM_OUT_DIR}"
 
 CMD+=" -verbose"
 
-CMD+=" build"
+#CMD+=" build"
 
 echo xcode build command:
 echo ${CMD}
@@ -57,7 +57,8 @@ eval $CMD
 
 # find the app
 
-IOSSIM_APP_PATH=`find ${IOSSIM_OUT_DIR} -name "*.app"`
+#IOSSIM_APP_PATH=`find ${IOSSIM_OUT_DIR} -name "*.app"`
+IOSSIM_APP_PATH=`find . -name "*.app"`
 
 test -e ${OSSIM_APP_PATH} && echo ${OSSIM_APP_PATH}
 
