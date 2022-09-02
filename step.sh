@@ -41,6 +41,7 @@ if [ -n "${other_swift_flags}" ] ; then
     CMD+=" OTHER_SWIFT_FLAGS=\"${other_swift_flags}\""
 fi
 
+mkdir build
 IOSSIM_OUT_DIR=`pwd`/build
 CMD+=" SYMROOT=${IOSSIM_OUT_DIR}"
 
